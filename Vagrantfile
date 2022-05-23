@@ -1,13 +1,13 @@
 CONFIG_DNS_DOMAIN = 'sidero.test'
-CONFIG_CAPI_VERSION = '0.4.3'                                   # see https://github.com/kubernetes-sigs/cluster-api/releases (see the sigs.k8s.io/cluster-api dependency in the sidero release notes)
-CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.4.1'                 # see https://github.com/talos-systems/cluster-api-bootstrap-provider-talos/releases
-CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.3.0'             # see https://github.com/talos-systems/cluster-api-control-plane-provider-talos/releases
-CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.4.0'           # see https://github.com/talos-systems/sidero/releases
-CONFIG_TALOS_VERSION = '0.13.0'                                 # see https://github.com/talos-systems/talos/releases
-CONFIG_THEILA_TAG = 'v0.1.1'                                    # see https://github.com/talos-systems/theila/releases
-CONFIG_KUBERNETES_VERSION = '1.22.2'                            # see https://github.com/talos-systems/talos/releases (see the talos release notes)
-CONFIG_KUBERNETES_DASHBOARD_TAG = 'v2.4.0'                      # see https://github.com/kubernetes/dashboard/releases
-CONFIG_K9S_TAG = 'v0.24.15'                                     # see https://github.com/derailed/k9s/releases
+CONFIG_CAPI_VERSION = '1.0.4'                                   # see https://github.com/kubernetes-sigs/cluster-api/releases (see the sigs.k8s.io/cluster-api dependency in the sidero release notes)
+CONFIG_CAPI_BOOTSTRAP_PROVIDER = 'talos:v0.5.3'                 # see https://github.com/siderolabs/cluster-api-bootstrap-provider-talos/releases
+CONFIG_CAPI_CONTROL_PLANE_PROVIDER = 'talos:v0.4.6'             # see https://github.com/siderolabs/cluster-api-control-plane-provider-talos/releases
+CONFIG_CAPI_INFRASTRUCTURE_PROVIDER = 'sidero:v0.5.0'           # see https://github.com/siderolabs/sidero/releases
+CONFIG_TALOS_VERSION = '1.0.5'                                  # see https://github.com/siderolabs/talos/releases
+CONFIG_THEILA_TAG = 'v0.2.1'                                    # see https://github.com/siderolabs/theila/releases
+CONFIG_KUBERNETES_VERSION = '1.23.6'                            # see https://github.com/siderolabs/talos/releases (see the talos release notes)
+CONFIG_KUBERNETES_DASHBOARD_TAG = 'v2.5.1'                      # see https://github.com/kubernetes/dashboard/releases
+CONFIG_K9S_TAG = 'v0.25.18'                                     # see https://github.com/derailed/k9s/releases
 
 # connect to the internal virtual network.
 CONFIG_PANDORA_BRIDGE_NAME = nil
@@ -17,10 +17,10 @@ CONFIG_PANDORA_DHCP_RANGE = '10.10.0.100,10.10.0.200,10m'
 
 # connect to the external physical network through the given bridge.
 # NB uncomment this block when using a bridge.
-CONFIG_PANDORA_BRIDGE_NAME = 'br-rpi'
-CONFIG_PANDORA_HOST_IP = '10.3.0.1'
-CONFIG_PANDORA_IP = '10.3.0.2'
-CONFIG_PANDORA_DHCP_RANGE = '10.3.0.100,10.3.0.200,10m'
+# CONFIG_PANDORA_BRIDGE_NAME = 'br-rpi'
+# CONFIG_PANDORA_HOST_IP = '10.3.0.1'
+# CONFIG_PANDORA_IP = '10.3.0.2'
+# CONFIG_PANDORA_DHCP_RANGE = '10.3.0.100,10.3.0.200,10m'
 
 # this environment is used in all the provision steps.
 PROVISION_ENV = ENV.select do |k, v|
@@ -33,7 +33,7 @@ end
 require './lib.rb'
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'ubuntu-20.04-amd64'
+  config.vm.box = 'alvistack/ubuntu-20.04'
 
   config.vm.provider :libvirt do |lv, config|
     lv.cpus = 2

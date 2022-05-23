@@ -2,9 +2,9 @@
 source /vagrant/lib.sh
 
 
-capi_infrastructure_provider="${1:-sidero:v0.4.0}"; shift || true
-talos_version="${1:-0.13.0}"; shift || true
-kubernetes_version="${1:-1.22.2}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.5.0}"; shift || true
+talos_version="${1:-1.0.5}"; shift || true
+kubernetes_version="${1:-1.23.6}"; shift || true
 
 # NB we use the first control plane machine as the bootstrap one.
 control_plane_ip="$(cat /vagrant/shared/machines.json | jq -r '.[] | select(.role == "controlplane") | .ip' | head -1)"
@@ -20,7 +20,7 @@ CONTROL_PLANE_ENDPOINT="$control_plane_ip" \
 CONTROL_PLANE_PORT=6443 \
 CONTROL_PLANE_SERVERCLASS='controlplane' \
 WORKER_SERVERCLASS='worker' \
-    clusterctl config cluster \
+    clusterctl generate cluster \
         example \
         --infrastructure "$capi_infrastructure_provider" \
         >example-cluster.yaml

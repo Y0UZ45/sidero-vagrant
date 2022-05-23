@@ -3,14 +3,14 @@ source /vagrant/lib.sh
 
 
 control_plane_ip="${1:-10.10.0.2}"; shift || true
-capi_version="${1:-0.4.3}"; shift || true
-capi_boostrap_provider="${1:-talos:v0.4.1}"; shift || true
-capi_control_plane_provider="${1:-talos:v0.3.0}"; shift || true
-capi_infrastructure_provider="${1:-sidero:v0.4.0}"; shift || true
-talos_version="${1:-0.13.0}"; shift || true
-kubernetes_version="${1:-1.22.2}"; shift || true
+capi_version="${1:-1.0.5}"; shift || true
+capi_boostrap_provider="${1:-talos:v0.5.3}"; shift || true
+capi_control_plane_provider="${1:-talos:v0.4.6}"; shift || true
+capi_infrastructure_provider="${1:-sidero:v0.5.0}"; shift || true
+talos_version="${1:-1.0.5}"; shift || true
+kubernetes_version="${1:-1.23.6}"; shift || true
 
-talos_image="ghcr.io/talos-systems/talos:v$talos_version"
+talos_image="ghcr.io/siderolabs/talos:v$talos_version"
 
 
 #
@@ -56,9 +56,9 @@ cp ~/.talos/config /vagrant/shared/talosconfig
 # see https://www.sidero.dev/docs/v0.3/getting-started/install-clusterapi/
 # see https://www.sidero.dev/docs/v0.3/overview/installation/
 # see https://www.sidero.dev/docs/v0.3/resource-configuration/environments/
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0/metadata.yaml
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0/cluster-template.yaml
-# see https://github.com/talos-systems/sidero/releases/download/v0.4.0/infrastructure-components.yaml
+# see https://github.com/siderolabs/sidero/releases/download/v0.4.0/metadata.yaml
+# see https://github.com/siderolabs/sidero/releases/download/v0.4.0/cluster-template.yaml
+# see https://github.com/siderolabs/sidero/releases/download/v0.4.0/infrastructure-components.yaml
 
 title 'Installing sidero'
 export SIDERO_CONTROLLER_MANAGER_HOST_NETWORK=true
@@ -80,10 +80,10 @@ title "Patching sidero to use talos $talos_version"
 kubectl patch environment default --type json --patch-file /dev/stdin <<EOF
 - op: replace
   path: /spec/initrd/url
-  value: https://github.com/talos-systems/talos/releases/download/v$talos_version/initramfs-amd64.xz
+  value: https://github.com/siderolabs/talos/releases/download/v$talos_version/initramfs-amd64.xz
 - op: replace
   path: /spec/kernel/url
-  value: https://github.com/talos-systems/talos/releases/download/v$talos_version/vmlinuz-amd64
+  value: https://github.com/siderolabs/talos/releases/download/v$talos_version/vmlinuz-amd64
 - op: add
   path: /spec/kernel/args/-
   value: ipv6.disable=1

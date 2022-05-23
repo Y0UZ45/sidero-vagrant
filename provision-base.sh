@@ -101,7 +101,7 @@ apt-get install -y bash-completion
 apt-get install -y p7zip-full
 
 # install yq.
-wget -qO- https://github.com/mikefarah/yq/releases/download/v4.10.0/yq_linux_amd64.tar.gz | tar xz
+wget -qO- https://github.com/mikefarah/yq/releases/download/v4.25.1/yq_linux_amd64.tar.gz | tar xz
 install yq_linux_amd64 /usr/local/bin/yq
 rm yq_linux_amd64
 
